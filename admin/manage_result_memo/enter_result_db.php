@@ -193,9 +193,11 @@
 				</div>';
 			endwhile;
 
-			$result['startingSurah'] = get_memorization_scores_total()->starting_surah;
-			$result['endingSurah'] = get_memorization_scores_total()->ending_surah;
-			$result['daily_submission'] = get_memorization_scores_total()->daily_submission;
+			$result['startingSurah'] = get_memorization_scores_total()->starting_surah ?? '';
+			$result['endingSurah'] = get_memorization_scores_total()->ending_surah ?? '';
+			$result['daily_submission'] = get_memorization_scores_total()->daily_submission ?? '';
+			$result['attendance'] = get_memorization_scores_total()->attendance ?? '';
+			$result['holiday'] = get_memorization_scores_total()->holiday ?? '';
 
 			$result['html'] = $html; 
 			$result['query'] = 'true';
@@ -215,7 +217,9 @@
 		$startingSurah = $_POST['startingSurah'];
 		$endingSurah = $_POST['endingSurah'];
 		$daily_submission = $_POST['daily_submission'];
-
+		$attendance = $_POST['attendance'];
+		$holiday = $_POST['holiday'];
+		
 		$num = 1;
 		$div = 0;
 		$T_Score = 0;
@@ -255,8 +259,8 @@
 			$avg = round($T_Score/$div);
 
 			$sql2 = "INSERT INTO memorization_scores_total
-			(student_id, branch, class_id, term, year, total_score, out_of, starting_surah, ending_surah, daily_submission, average,fullname)
-			VALUES (?,?,?,?,?,?,?,?,?,?,?,?)
+			(student_id, branch, class_id, term, year, total_score, out_of, starting_surah, ending_surah, daily_submission, average,fullname,attendance,holiday)
+			VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)
 			ON DUPLICATE KEY UPDATE
 				total_score       = VALUES(total_score),
 				out_of            = VALUES(out_of),
@@ -264,10 +268,12 @@
 				ending_surah      = VALUES(ending_surah),
 				daily_submission  = VALUES(daily_submission),
 				average           = VALUES(average),
-				fullname           = VALUES(fullname);
+				fullname           = VALUES(fullname),
+				attendance           = VALUES(attendance),
+				holiday           = VALUES(holiday);
 			";
 			$totStmt = $conn->prepare($sql2);
-			$totStmt->bind_param("isiisiisssds",$student_id,$branch,$class_id,$term,$session,$T_Score,$out_of,$startingSurah,$endingSurah,$daily_submission,$avg,$Fullname);
+			$totStmt->bind_param("isiisiisssdsss",$student_id,$branch,$class_id,$term,$session,$T_Score,$out_of,$startingSurah,$endingSurah,$daily_submission,$avg,$Fullname,$attendance,$holiday);
 			$totStmt->execute();
 
 			// ----------------------------------------------------------
