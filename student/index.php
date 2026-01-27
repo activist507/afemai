@@ -260,6 +260,13 @@
  					<span>Check Result</span>
  				</a>
  			</li>
+
+			<li class="nav-item">
+ 				<a class="nav-link collapsed" href="./?check_memorization">
+ 					<i class="bi bi-eye"></i>
+ 					<span>Check Islamiyyah Result</span>
+ 				</a>
+ 			</li>
  			<!-- End check result Nav -->
 
  			<li class="nav-item">
@@ -319,6 +326,9 @@
     }
     elseif(isset($_GET['check_result'])){
         require_once('check_result.php');
+    }
+	elseif(isset($_GET['check_memorization'])){
+        require_once('check_memorization.php');
     }
     elseif(isset($_GET['logout'])){
         require_once('logout.php');

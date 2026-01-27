@@ -292,6 +292,13 @@
 				</a>
 			</li>
 			<li class="nav-item">
+				<a class="nav-link collapsed" href="./?res_set_memo">
+					<i class="bi bi-pencil-square"></i>
+					<span>Memorization Result Settings</span>
+				</a>
+			</li>
+
+			<li class="nav-item">
 				<a class="nav-link collapsed" href="./?Debtors">
 					<i class="bi bi-bar-chart-line"></i>
 					<span>Fees Payment</span>
@@ -339,6 +346,16 @@
     
     elseif(isset($_GET['stud_sch_fees'])){
         require_once 'adm_student/stud_sch_fees.php';
+    }
+
+	elseif(isset($_GET['res_set_memo'])){
+        require_once '../admin/manage_result_memo/result_settings.php';
+    }
+	elseif(isset($_GET['ent_res_memo'])){
+        require_once '../admin/manage_result_memo/enter_result.php';
+    }
+    elseif(isset($_GET['dis_res_memo'])){
+        require_once '../admin/manage_result_memo/display_result.php';
     }
     
     elseif(isset($_GET['staff_reg'])){

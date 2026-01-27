@@ -48,10 +48,24 @@ $ending_surah = $conn->query("SELECT * FROM memorization_surah");
 							<?php endwhile ?>
 						</select>
 					</div>
-					
 				</div>
 				<div class="col-12">
-					<input type="text" id="daily_submission" placeholder="Daily submission" class="form-control">
+					<div class="input-group">
+						<span class="input-group-text">Submission</span>
+						<input type="text" id="daily_submission" placeholder="Daily submission" class="form-control">
+					</div>
+				</div>
+				<div class="col-12">
+					<div class="input-group">
+						<span class="input-group-text">Attendance</span>
+						<input type="text" id="attendance" placeholder="Attendance" class="form-control extra">
+					</div>
+				</div>
+				<div class="col-12">
+					<div class="input-group">
+						<span class="input-group-text">Holi Period</span>
+						<input type="text" id="holiday" placeholder="Holiday Period" class="form-control extra">
+					</div>
 				</div>
 				<div class="col-6"></div>
 				<div class="col-6">
@@ -152,6 +166,8 @@ $(document).ready(function() {
 					$('#startingSurah').val(response.startingSurah);
 					$('#endingSurah').val(response.endingSurah);
 					$('#daily_submission').val(response.daily_submission);
+					$('#holiday').val(response.holiday);
+					$('#attendance').val(response.attendance);
 				}
 			})
 			.fail(function(err){
@@ -161,24 +177,47 @@ $(document).ready(function() {
 			$('#studentId').val('');
 			$('#studentName').val('');
 			$('.sum-row').remove(); 
+			$('#startingSurah').val('');
+			$('#endingSurah').val('');
+			$('#daily_submission').val('');
+			$('#holiday').val('');
+			$('#attendance').val('');
 		}
 	})
 
 	$(document).on('change', '.surah', function () {
 		var check = $(this).val();
-		var anyFilled = false;   // <-- key change
+		var anyFilled = false;
 		$('.sum-row').each(function () {
 			let f1 = $(this).find('.field1').val().trim();
 			let f2 = $(this).find('.field2').val().trim();
 			let f3 = $(this).find('.field3').val().trim();
 			let f4 = $(this).find('.field4').val().trim();
-			// If at least one field in ANY row is filled
 			if (f1 !== '' || f2 !== '' || f3 !== '' || f4 !== '') {
 				anyFilled = true;
-				return false; // stop loop early
+				return false;
 			}
 		});
-		// Final logic
+		if (check !== '' && anyFilled && $('.is-invalid').length === 0) {
+			$('#submitBtn').prop('disabled', false);
+		} else {
+			$('#submitBtn').prop('disabled', true);
+		}
+	});
+
+	$(document).on('input', '.extra', function () {
+		var check = $(this).val();
+		var anyFilled = false;
+		$('.sum-row').each(function () {
+			let f1 = $(this).find('.field1').val().trim();
+			let f2 = $(this).find('.field2').val().trim();
+			let f3 = $(this).find('.field3').val().trim();
+			let f4 = $(this).find('.field4').val().trim();
+			if (f1 !== '' || f2 !== '' || f3 !== '' || f4 !== '') {
+				anyFilled = true;
+				return false;
+			}
+		});
 		if (check !== '' && anyFilled && $('.is-invalid').length === 0) {
 			$('#submitBtn').prop('disabled', false);
 		} else {
@@ -197,7 +236,9 @@ $(document).ready(function() {
 		var startingSurah = $('#startingSurah').val();
 		var endingSurah = $('#endingSurah').val();
 		var daily_submission = $('#daily_submission').val();
-		
+		var attendance = $('#attendance').val();
+		var holiday = $('#holiday').val();
+
 		data = {
 			"type":"submitResult",
 			"form":form,
@@ -207,7 +248,9 @@ $(document).ready(function() {
 			"term":term,
 			"startingSurah":startingSurah,
 			"endingSurah":endingSurah,
-			"daily_submission":daily_submission
+			"daily_submission":daily_submission,
+			"attendance":attendance,
+			"holiday":holiday
 		};
 		// console.log(startingSurah,endingSurah)
 		$.post("../admin/manage_result_memo/enter_result_db.php",data,null,"json")
@@ -220,6 +263,8 @@ $(document).ready(function() {
 				$('#startingSurah').val('');
 				$('#endingSurah').val('');
 				$('#daily_submission').val('');
+				$('#holiday').val('');
+				$('#attendance').val('');
 				// console.log(response)
 			} else {
 				$.alert("Could not submit result","Message");

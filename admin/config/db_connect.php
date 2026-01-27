@@ -24,5 +24,15 @@
         }
         return $rows;
     }
+    function showSubjectName($sub_id){
+        global $conn;
+        $memorization_subject = $conn->query("SELECT * FROM memorization_subject WHERE id='$sub_id' ")->fetch_object();
+        return $memorization_subject->subject;
+    }
+    function showClassName($class_id){
+        global $conn;
+        $memorization_class = $conn->query("SELECT * FROM memorization_class WHERE id='$class_id' ")->fetch_object();
+        return $memorization_class->class_name;
+    }
 
 ?>
