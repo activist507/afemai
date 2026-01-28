@@ -112,7 +112,7 @@
                                     <?= $currentDate = date('d-m-Y') ?>
                                 </p>
                                 <p class="text-center p-1 flex-1 border border-slate-900 font-bold uppercase">
-                                    <?= $branches_row->Result_Title ?>
+                                    Afemai Memorization Transcript
                                 </p>
                                 <p class="text-center p-1 flex-1 border border-slate-900">
                                     Term:
@@ -224,14 +224,14 @@
                                     Starting Surah:
                                 </p>
                                 <p class="text-center p-1 w-3/12 border-r-2 h-max text-xs font-bold">
-                                    <?= $result_summary->starting_surah ?>
+                                    <i><?= $result_summary->starting_surah ?></i>
                                 </p>
 
                                 <p class="text-center p-1 w-3/12 flex-1 border-r-2 h-max text-xs font-bold">
                                     Ending Surah:
                                 </p>
                                 <p class="text-center p-1 w-3/12 border-r-2 h-max text-xs font-bold">
-                                    <?= $result_summary->ending_surah?>
+                                    <i><?= $result_summary->ending_surah?></i>
                                 </p>
                             </div>
                             <div class="border border-slate-900 flex items-center uppercase">
@@ -239,29 +239,44 @@
                                     DAILY SUBMISSION:
                                 </p>
                                 <p class="text-center p-1 w-3/12 border-r-2 h-max text-xs font-bold">
-                                    <?= $result_summary->daily_submission ?>
+                                    <i><?= $result_summary->daily_submission ?></i>
                                 </p>
 
                                 <p class="text-center p-1 w-3/12 flex-1 border-r-2 h-max text-xs font-bold">
                                     ATTENDANCE:
                                 </p>
                                 <p class="text-center p-1 w-3/12 border-r-2 h-max text-xs font-bold">
-                                    <?= $result_summary->attendance?>
+                                    <i><?= $result_summary->attendance?></i>
                                 </p>
                             </div>
                             <div class="border border-slate-900 flex items-center uppercase">
-                                <p class="text-center p-1 flex-1 border-r-2 h-max text-xs">
-                                    total score:
+                                <p class="text-center p-1 w-3/12 flex-1 border-r-2 h-max text-xs font-bold">
+                                    TOTAL HIZB:
                                 </p>
-                                <p class="text-center p-1 w-1/12 border-r-2 h-max text-xs font-bold">
-                                    <?= $result_summary->total_score ?>
+                                <p class="text-center p-1 w-3/12 border-r-2 h-max text-xs font-bold">
+                                    <i><?= $result_summary->total_hifz ?></i>
                                 </p>
 
-                                <p class="text-center p-1 flex-1 border-r-2 h-max text-xs">
+                                <p class="text-center p-1 w-3/12 flex-1 border-r-2 h-max text-xs font-bold">
+                                    WALIMAH STATUS:
+                                </p>
+                                <p class="text-center p-1 w-3/12 border-r-2 h-max text-xs font-bold">
+                                    <i><?= $result_summary->walimah_status?></i>
+                                </p>
+                            </div>
+                            <div class="border border-slate-900 flex items-center uppercase">
+                                <p class="text-center p-1 w-3/12 flex-1 border-r-2 h-max text-xs">
+                                    total score:
+                                </p>
+                                <p class="text-center p-1 w-3/12 border-r-2 h-max text-xs font-bold">
+                                    <i> <?= $result_summary->total_score ?></i>
+                                </p>
+
+                                <p class="text-center p-1 w-3/12 flex-1 border-r-2 h-max text-xs">
                                     percentage score:
                                 </p>
-                                <p class="text-center p-1 w-1/12 border-r-2 h-max text-xs font-bold">
-                                    <?= $result_summary->average?>%
+                                <p class="text-center p-1 w-3/12 border-r-2 h-max text-xs font-bold">
+                                    <i> <?= $result_summary->average?>% </i>
                                 </p>
                             </div>
                             <div class="border border-slate-900 flex items-center">
@@ -292,7 +307,7 @@
                                 </p>
                                 <p class="p-2 pl-4 flex-1 border-r-2 h-max text-md text-center">
                                     Email:
-                                    <?= $branches_row->Branch_Email . ' || Website:  ' . $branches_row->Branch_Website ?>
+                                    <?= $branches_row->Branch_Email . ' || Website:  ' . 'afemaicollege.com' ?>
                                 </p>
                                 <p class="p-2 pl-4 border-r-2 h-max text-md text-right">
                                     <img src="data:<?php echo $mimeType3; ?>;base64,<?php echo $imageData2; ?>"
