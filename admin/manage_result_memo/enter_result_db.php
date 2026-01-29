@@ -198,6 +198,8 @@
 			$result['daily_submission'] = get_memorization_scores_total()->daily_submission ?? '';
 			$result['attendance'] = get_memorization_scores_total()->attendance ?? '';
 			$result['holiday'] = get_memorization_scores_total()->holiday ?? '';
+			$result['total_hifz'] = get_memorization_scores_total()->total_hifz ?? '';
+			$result['walimah_status'] = get_memorization_scores_total()->walimah_status ?? '';
 
 			$result['html'] = $html; 
 			$result['query'] = 'true';
@@ -283,7 +285,10 @@
 			// ----------------------------------------------------------
 			//  CALCULATE POSITION
 			// ----------------------------------------------------------
-			$allGroup = $conn->query("SELECT id,total_score FROM memorization_scores_total WHERE class_id='$class_id' AND branch='$branch' AND term='$term' AND year='$session' ORDER BY total_score DESC")->fetch_all(MYSQLI_ASSOC);
+			$allSql = $conn->query("SELECT id,total_score FROM memorization_scores_total 
+				WHERE class_id='$class_id' AND branch='$branch' AND term='$term' 
+				AND year='$session' ORDER BY total_score DESC");
+			$allGroup = fetch_all_assoc($allSql);
 			$rank = 0;
 			$last_score = null;
 			$position = 0;
