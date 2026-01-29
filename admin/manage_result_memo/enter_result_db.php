@@ -198,6 +198,8 @@
 			$result['daily_submission'] = get_memorization_scores_total()->daily_submission ?? '';
 			$result['attendance'] = get_memorization_scores_total()->attendance ?? '';
 			$result['holiday'] = get_memorization_scores_total()->holiday ?? '';
+			$result['total_hifz'] = get_memorization_scores_total()->total_hifz ?? '';
+			$result['walimah_status'] = get_memorization_scores_total()->walimah_status ?? '';
 
 			$result['html'] = $html; 
 			$result['query'] = 'true';
@@ -219,6 +221,8 @@
 		$daily_submission = $_POST['daily_submission'];
 		$attendance = $_POST['attendance'];
 		$holiday = $_POST['holiday'];
+		$total_hifz = $_POST['total_hifz'];
+		$walimah_status = $_POST['walimah_status'];
 		
 		$num = 1;
 		$div = 0;
@@ -259,8 +263,8 @@
 			$avg = round($T_Score/$div);
 
 			$sql2 = "INSERT INTO memorization_scores_total
-			(student_id, branch, class_id, term, year, total_score, out_of, starting_surah, ending_surah, daily_submission, average,fullname,attendance,holiday)
-			VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+			(student_id, branch, class_id, term, year, total_score, out_of, starting_surah, ending_surah, daily_submission, average,fullname,attendance,holiday,total_hifz,walimah_status)
+			VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
 			ON DUPLICATE KEY UPDATE
 				total_score       = VALUES(total_score),
 				out_of            = VALUES(out_of),
@@ -270,16 +274,21 @@
 				average           = VALUES(average),
 				fullname           = VALUES(fullname),
 				attendance           = VALUES(attendance),
-				holiday           = VALUES(holiday);
+				holiday           = VALUES(holiday),
+				total_hifz           = VALUES(total_hifz),
+				walimah_status           = VALUES(walimah_status);
 			";
 			$totStmt = $conn->prepare($sql2);
-			$totStmt->bind_param("isiisiisssdsss",$student_id,$branch,$class_id,$term,$session,$T_Score,$out_of,$startingSurah,$endingSurah,$daily_submission,$avg,$Fullname,$attendance,$holiday);
+			$totStmt->bind_param("isiisiisssdsssss",$student_id,$branch,$class_id,$term,$session,$T_Score,$out_of,$startingSurah,$endingSurah,$daily_submission,$avg,$Fullname,$attendance,$holiday,$total_hifz,$walimah_status);
 			$totStmt->execute();
 
 			// ----------------------------------------------------------
 			//  CALCULATE POSITION
 			// ----------------------------------------------------------
-			$allGroup = $conn->query("SELECT id,total_score FROM memorization_scores_total WHERE class_id='$class_id' AND branch='$branch' AND term='$term' AND year='$session' ORDER BY total_score DESC")->fetch_all(MYSQLI_ASSOC);
+			$allSql = $conn->query("SELECT id,total_score FROM memorization_scores_total 
+				WHERE class_id='$class_id' AND branch='$branch' AND term='$term' 
+				AND year='$session' ORDER BY total_score DESC");
+			$allGroup = fetch_all_assoc($allSql);
 			$rank = 0;
 			$last_score = null;
 			$position = 0;

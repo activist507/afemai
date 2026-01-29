@@ -67,6 +67,24 @@ $ending_surah = $conn->query("SELECT * FROM memorization_surah");
 						<input type="text" id="holiday" placeholder="Holiday Period" class="form-control extra">
 					</div>
 				</div>
+				<div class="col-12">
+					<div class="input-group">
+						<span class="input-group-text">Total Hifz</span>
+						<input type="text" id="total_hifz" placeholder="total Hifz" class="form-control extra">
+					</div>
+				</div>
+				<div class="col-12">
+					<div class="input-group">
+						<span class="input-group-text">Walimah Status</span>
+						<select name="endingSurah" id="walimah_status" class="form-control surah">
+							<option value="">Walimah Status</option>
+							<option value="Done">Done</option>
+							<option value="Not Done">Not Done</option>
+							<option value="In View">In View</option>
+							<option value="Not Yet">Not Yet</option>
+						</select>
+					</div>
+				</div>
 				<div class="col-6"></div>
 				<div class="col-6">
 					<button id="submitBtn" class="btn btn-primary w-100" disabled>Submit</button>
@@ -168,6 +186,8 @@ $(document).ready(function() {
 					$('#daily_submission').val(response.daily_submission);
 					$('#holiday').val(response.holiday);
 					$('#attendance').val(response.attendance);
+					$('#total_hifz').val(response.total_hifz);
+					$('#walimah_status').val(response.walimah_status);
 				}
 			})
 			.fail(function(err){
@@ -182,6 +202,8 @@ $(document).ready(function() {
 			$('#daily_submission').val('');
 			$('#holiday').val('');
 			$('#attendance').val('');
+			$('#total_hifz').val('');
+			$('#walimah_status').val('');
 		}
 	})
 
@@ -238,6 +260,8 @@ $(document).ready(function() {
 		var daily_submission = $('#daily_submission').val();
 		var attendance = $('#attendance').val();
 		var holiday = $('#holiday').val();
+		var total_hifz = $('#total_hifz').val();
+		var walimah_status = $('#walimah_status').val();
 
 		data = {
 			"type":"submitResult",
@@ -250,7 +274,9 @@ $(document).ready(function() {
 			"endingSurah":endingSurah,
 			"daily_submission":daily_submission,
 			"attendance":attendance,
-			"holiday":holiday
+			"holiday":holiday,
+			"total_hifz":total_hifz,
+			"walimah_status":walimah_status
 		};
 		// console.log(startingSurah,endingSurah)
 		$.post("../admin/manage_result_memo/enter_result_db.php",data,null,"json")
@@ -265,6 +291,8 @@ $(document).ready(function() {
 				$('#daily_submission').val('');
 				$('#holiday').val('');
 				$('#attendance').val('');
+				$('#total_hifz').val('');
+				$('#walimah_status').val('');
 				// console.log(response)
 			} else {
 				$.alert("Could not submit result","Message");

@@ -113,7 +113,7 @@ $(document).ready(function() {
                     if (response.status == 'failed') {
                         $.alert(response.msg,"Error")
                     } else if (response.status == 'success') {
-                        $.alert("Result Available","Success")
+                        // $.alert("Result Available","Success")
                         window.location.href = 'memorization_result.php?ID=' + stud_id +
                              '&branch=' + branch_ +
                             '&class=' + class_ + '&name=' + response.Fullnames +
